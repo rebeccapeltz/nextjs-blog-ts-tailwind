@@ -4,10 +4,11 @@ import Link from 'next/link'
 const CustomLink = ({ href, ...rest }) => {
   const isInternalLink = href && href.startsWith('/')
   const isAnchorLink = href && href.startsWith('#')
-
+  // debugger
   if (isInternalLink) {
+    // debugger
     return (
-      <Link href={href}>
+      <Link legacy href={href}>
         <a {...rest} />
       </Link>
     )
