@@ -6,6 +6,24 @@ import SectionContainer from './SectionContainer'
 import Footer from './Footer'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
+import { ErrorBoundary } from 'react-error-boundary'
+
+function ErrorFallback({ error, resetErrorBoundary }) {
+  // Call resetErrorBoundary() to reset the error boundary and retry the render.
+
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre style={{ color: 'red' }}>{error.message}</pre>
+    </div>
+  )
+}
+
+const logError = (error, info) => {
+  // Do something with the error, e.g. log to an external API
+  console.log(error.message)
+  console.log(info)
+}
 
 const LayoutWrapper = ({ children }) => {
   return (
@@ -40,7 +58,9 @@ const LayoutWrapper = ({ children }) => {
                 </Link>
               ))}
             </div>
-            <ThemeSwitch />
+            <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
+              <ThemeSwitch />
+            </ErrorBoundary>
             <MobileNav />
           </div>
         </header>
